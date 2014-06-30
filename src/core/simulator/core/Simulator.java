@@ -1,4 +1,4 @@
-package simulator.core;
+package core.simulator.core;
 
 /**
  * This is DISIS

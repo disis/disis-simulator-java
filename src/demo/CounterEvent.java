@@ -1,6 +1,6 @@
 package demo;
 
-import simulator.core.Simulator;
+import core.simulator.core.Simulator;
 
 /**
  * This is DISIS

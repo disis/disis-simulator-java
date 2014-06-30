@@ -1,0 +1,11 @@
+{
+    "simulator-title": "Test LP",
+    "simulator-name": "test-lp",
+    "simulator-description": "Java Simulator",
+    "simulator-address": "localhost",
+    "simulator-port": 8099,
+    "simulator-path": "/",
+    "disis-address": "localhost",
+    "disis-port": 8099,
+    "disis-path": "/disis"
+}

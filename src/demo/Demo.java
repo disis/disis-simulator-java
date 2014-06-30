@@ -5,13 +5,16 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import simulator.core.ScheduledEvent;
-import simulator.core.SimulationModel;
-import simulator.core.Simulator;
-import simulator.core.TimeStamp;
-import simulator.disis.RestClientInfo;
+import core.configuration.ConfigurationLoader;
+import core.configuration.LocalConfiguration;
+import core.simulator.core.ScheduledEvent;
+import core.simulator.core.SimulationModel;
+import core.simulator.core.Simulator;
+import core.simulator.core.TimeStamp;
+import core.simulator.disis.RestClientInfo;
 
 import javax.ws.rs.core.MediaType;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +26,17 @@ import java.util.List;
 public class Demo {
 
     public static void main(String[] args) {
+        String configurationPath = new File("src/demo/configuration/configuration-sample.json").getAbsolutePath();
+        LocalConfiguration configuration = ConfigurationLoader.load(configurationPath, LocalConfiguration.class);
+
         ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
-        WebResource resource = client.resource("http://localhost:8099/disis/connect");
-        RestClientInfo clientInfo = new RestClientInfo("Test LP", "test-lp", "Java Simulator", "http://localhost:1234/test-lp/");
+        WebResource resource = client.resource(configuration.getDisisFullAddress());
+        RestClientInfo clientInfo = new RestClientInfo(
+                configuration.getTitle(),
+                configuration.getName(),
+                configuration.getDescription(),
+                configuration.getSimulatorFullAddress());
         Gson gson = new Gson();
         resource.type(MediaType.APPLICATION_JSON).post(gson.toJson(clientInfo));
     }

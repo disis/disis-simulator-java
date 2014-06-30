@@ -1,8 +1,8 @@
 package demo;
 
-import simulator.core.Event;
-import simulator.core.Simulator;
-import simulator.core.TimeStamp;
+import core.simulator.core.Event;
+import core.simulator.core.Simulator;
+import core.simulator.core.TimeStamp;
 
 /**
  * This is DISIS

@@ -1,4 +1,4 @@
-package simulator.disis;
+package core.simulator.disis;
 
 import com.google.gson.annotations.SerializedName;
 

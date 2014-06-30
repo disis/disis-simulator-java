@@ -1,8 +1,8 @@
 package demo;
 
-import simulator.core.Event;
-import simulator.core.EventInvoker;
-import simulator.core.Simulator;
+import core.simulator.core.Event;
+import core.simulator.core.EventInvoker;
+import core.simulator.core.Simulator;
 
 /**
  * This is DISIS

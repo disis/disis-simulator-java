@@ -1,6 +1,4 @@
-package simulator.core;
-
-import simulator.core.Simulator;
+package core.simulator.core;
 
 /**
  * This is DISIS

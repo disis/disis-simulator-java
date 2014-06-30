@@ -1,8 +1,4 @@
-package simulator.core;
-
-import simulator.core.Event;
-import simulator.core.ScheduledEvent;
-import simulator.core.TimeStamp;
+package core.simulator.core;
 
 import java.util.PriorityQueue;
 

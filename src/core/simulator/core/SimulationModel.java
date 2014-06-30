@@ -1,4 +1,4 @@
-package simulator.core;
+package core.simulator.core;
 
 import java.util.Collections;
 
