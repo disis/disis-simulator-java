@@ -6,5 +6,7 @@
     "simulator-port": 4099,
     "disis-address": "localhost",
     "disis-port": 8099,
-    "disis-path": "/disis"
+    "disis-path": "/disis",
+    "surrounding-simulators": [
+    ]
 }

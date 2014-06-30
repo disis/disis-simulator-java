@@ -31,10 +31,38 @@ import java.util.List;
 public class Demo {
 
     public static void main(String[] args) throws IOException {
-        String configurationPath = new File("src/demo/configuration/configuration-sample.json").getAbsolutePath();
+        String configurationPath1 = new File("src/demo/configuration/demo2/configuration-sample-1.json").getAbsolutePath();
+        String configurationPath2 = new File("src/demo/configuration/demo2/configuration-sample-2.json").getAbsolutePath();
+        LocalConfiguration configuration1 = ConfigurationLoader.load(configurationPath1, LocalConfiguration.class);
+        LocalConfiguration configuration2 = ConfigurationLoader.load(configurationPath2, LocalConfiguration.class);
+
+        Client client1 = connectSimulator(configuration1);
+        Client client2 = connectSimulator(configuration2);
+
+        System.in.read(); // wait
+    }
+
+    private static Client connectSimulator(LocalConfiguration configuration) throws IOException {
+        HttpServer httpServer = GrizzlyServerFactory.createHttpServer(configuration.getSimulatorFullAddress(), new ClassNamesResourceConfig(SimulatorRestResource.class));
+        httpServer.start();
+
+        ClientConfig config = new DefaultClientConfig();
+        Client client = Client.create(config);
+        WebResource resource = client.resource(configuration.getDisisFullAddress()).path("connect");
+        RestClientInfo clientInfo = new RestClientInfo(
+                configuration.getTitle(),
+                configuration.getName(),
+                configuration.getDescription(),
+                configuration.getSimulatorFullAddress());
+        Gson gson = new Gson();
+        resource.type(MediaType.APPLICATION_JSON).post(gson.toJson(clientInfo));
+        return client;
+    }
+
+    public static void demo1() throws IOException {
+        String configurationPath = new File("src/demo/configuration/demo1/configuration-sample.json").getAbsolutePath();
         LocalConfiguration configuration = ConfigurationLoader.load(configurationPath, LocalConfiguration.class);
 
-        System.out.println(configuration.getSimulatorFullAddress());
         HttpServer httpServer = GrizzlyServerFactory.createHttpServer(configuration.getSimulatorFullAddress(), new ClassNamesResourceConfig(SimulatorRestResource.class));
         httpServer.start();
 

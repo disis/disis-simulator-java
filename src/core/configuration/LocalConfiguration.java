@@ -8,6 +8,9 @@ package core.configuration;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collections;
+import java.util.List;
+
 public class LocalConfiguration {
 
     @SerializedName("simulator-title")
@@ -34,11 +37,14 @@ public class LocalConfiguration {
     @SerializedName("disis-path")
     private final String disisPath;
 
+    @SerializedName("surrounding-simulators")
+    private final List<String> surroundingSimulators;
+
     public LocalConfiguration() {
-        this("Unknown Simulator", "unknown-simulator", "Unknown Java Simulator", "localhost", 1099, "localhost", 1099, "/disis");
+        this("Unknown Simulator", "unknown-simulator", "Unknown Java Simulator", "localhost", 1099, "localhost", 1099, "/disis", Collections.<String>emptyList());
     }
 
-    public LocalConfiguration(String title, String name, String description, String address, int port, String disisAddress, int disisPort, String disisPath) {
+    public LocalConfiguration(String title, String name, String description, String address, int port, String disisAddress, int disisPort, String disisPath, List<String> surroundingSimulators) {
         this.title = title;
         this.name = name;
         this.description = description;
@@ -47,6 +53,7 @@ public class LocalConfiguration {
         this.disisAddress = disisAddress;
         this.disisPort = disisPort;
         this.disisPath = disisPath;
+        this.surroundingSimulators = surroundingSimulators;
     }
 
     public String getTitle() {
@@ -79,6 +86,10 @@ public class LocalConfiguration {
 
     public String getDisisPath() {
         return disisPath;
+    }
+
+    public Iterable<String> getSurroundingSimulators() {
+        return surroundingSimulators;
     }
 
     public String getDisisFullAddress() {

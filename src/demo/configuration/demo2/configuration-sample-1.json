@@ -1,0 +1,13 @@
+{
+    "simulator-title": "LP1",
+    "simulator-name": "lp1",
+    "simulator-description": "Logic Process 1",
+    "simulator-address": "localhost",
+    "simulator-port": 4098,
+    "disis-address": "localhost",
+    "disis-port": 8099,
+    "disis-path": "/disis",
+    "surrounding-simulators": [
+        "lp2"
+    ]
+}
