@@ -5,16 +5,21 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.ClassNamesResourceConfig;
 import core.configuration.ConfigurationLoader;
 import core.configuration.LocalConfiguration;
+import core.disis.SimulatorRestResource;
 import core.simulator.core.ScheduledEvent;
 import core.simulator.core.SimulationModel;
 import core.simulator.core.Simulator;
 import core.simulator.core.TimeStamp;
 import core.simulator.disis.RestClientInfo;
+import org.glassfish.grizzly.http.server.HttpServer;
 
 import javax.ws.rs.core.MediaType;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +30,17 @@ import java.util.List;
  */
 public class Demo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String configurationPath = new File("src/demo/configuration/configuration-sample.json").getAbsolutePath();
         LocalConfiguration configuration = ConfigurationLoader.load(configurationPath, LocalConfiguration.class);
 
+        System.out.println(configuration.getSimulatorFullAddress());
+        HttpServer httpServer = GrizzlyServerFactory.createHttpServer(configuration.getSimulatorFullAddress(), new ClassNamesResourceConfig(SimulatorRestResource.class));
+        httpServer.start();
+
         ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
-        WebResource resource = client.resource(configuration.getDisisFullAddress());
+        WebResource resource = client.resource(configuration.getDisisFullAddress()).path("connect");
         RestClientInfo clientInfo = new RestClientInfo(
                 configuration.getTitle(),
                 configuration.getName(),

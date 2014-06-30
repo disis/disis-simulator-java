@@ -25,9 +25,6 @@ public class LocalConfiguration {
     @SerializedName("simulator-port")
     private final int port;
 
-    @SerializedName("simulator-path")
-    private final String path;
-
     @SerializedName("disis-address")
     private final String disisAddress;
 
@@ -38,16 +35,15 @@ public class LocalConfiguration {
     private final String disisPath;
 
     public LocalConfiguration() {
-        this("Unknown Simulator", "unknown-simulator", "Unknown Java Simulator", "localhost", 1099, "/", "localhost", 1099, "/disis");
+        this("Unknown Simulator", "unknown-simulator", "Unknown Java Simulator", "localhost", 1099, "localhost", 1099, "/disis");
     }
 
-    public LocalConfiguration(String title, String name, String description, String address, int port, String path, String disisAddress, int disisPort, String disisPath) {
+    public LocalConfiguration(String title, String name, String description, String address, int port, String disisAddress, int disisPort, String disisPath) {
         this.title = title;
         this.name = name;
         this.description = description;
         this.address = address;
         this.port = port;
-        this.path = path;
         this.disisAddress = disisAddress;
         this.disisPort = disisPort;
         this.disisPath = disisPath;
@@ -73,10 +69,6 @@ public class LocalConfiguration {
         return port;
     }
 
-    public String getPath() {
-        return path;
-    }
-
     public String getDisisAddress() {
         return disisAddress;
     }
@@ -94,6 +86,6 @@ public class LocalConfiguration {
     }
 
     public String getSimulatorFullAddress() {
-        return String.format("http://%s:%d%s", getAddress(), getPort(), getPath());
+        return String.format("http://%s:%d", getAddress(), getPort());
     }
 }
