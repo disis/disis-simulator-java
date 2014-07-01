@@ -25,10 +25,15 @@ public class RestClientInfo {
     @SerializedName("end-point-address")
     public String endPointAddress;
 
-    public RestClientInfo(String title, String remoteName, String description, String endPointAddress) {
+    // ["fast-food-I", "highway-I"]
+    @SerializedName("surrounding-simulators")
+    public Iterable<String> surroundingSimulators;
+
+    public RestClientInfo(String title, String remoteName, String description, String endPointAddress, Iterable<String> surroundingSimulators) {
         this.title = title;
         this.remoteName = remoteName;
         this.description = description;
         this.endPointAddress = endPointAddress;
+        this.surroundingSimulators = surroundingSimulators;
     }
 }

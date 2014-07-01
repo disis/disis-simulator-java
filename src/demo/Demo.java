@@ -53,7 +53,8 @@ public class Demo {
                 configuration.getTitle(),
                 configuration.getName(),
                 configuration.getDescription(),
-                configuration.getSimulatorFullAddress());
+                configuration.getSimulatorFullAddress(),
+                configuration.getSurroundingSimulators());
         Gson gson = new Gson();
         resource.type(MediaType.APPLICATION_JSON).post(gson.toJson(clientInfo));
         return client;
@@ -73,7 +74,8 @@ public class Demo {
                 configuration.getTitle(),
                 configuration.getName(),
                 configuration.getDescription(),
-                configuration.getSimulatorFullAddress());
+                configuration.getSimulatorFullAddress(),
+                configuration.getSurroundingSimulators());
         Gson gson = new Gson();
         resource.type(MediaType.APPLICATION_JSON).post(gson.toJson(clientInfo));
     }
