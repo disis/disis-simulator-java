@@ -16,4 +16,10 @@ public class SimulatorRestResource {
     public void connected() {
         System.out.println("Yeah!");
     }
+
+    @POST
+    @Path("start-simulation")
+    public void startSimulation() {
+        System.out.println("Yeah!");
+    }
 }

@@ -87,7 +87,7 @@ public class Demo {
             public Iterable<ScheduledEvent> getInitialEvents() {
                 List<ScheduledEvent> events = new ArrayList<>();
                 events.add(new ScheduledEvent(new CounterEvent(100), new TimeStamp(0)));
-                return  events;
+                return events;
             }
         });
     }
