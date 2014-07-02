@@ -81,15 +81,15 @@ public class Demo {
     }
 
     private static void simulatorDemo() {
-        Simulator simulator = new Simulator(new SleepInvoker(1000));
-        simulator.simulate(new SimulationModel(){
+        Simulator simulator = new Simulator(new SimulationModel(){
             @Override
             public Iterable<ScheduledEvent> getInitialEvents() {
                 List<ScheduledEvent> events = new ArrayList<>();
                 events.add(new ScheduledEvent(new CounterEvent(100), new TimeStamp(0)));
                 return events;
             }
-        });
+        }, new SleepInvoker(1000));
+        simulator.simulate();
     }
 
     public static void restClient() {

@@ -15,7 +15,7 @@ public class Calendar {
         priorityQueue = new PriorityQueue<>();
     }
 
-    public void schedule(Event event, TimeStamp timeStamp) {
+    public void schedule(Event event, double timeStamp) {
         priorityQueue.add(new ScheduledEvent(event, timeStamp));
     }
 

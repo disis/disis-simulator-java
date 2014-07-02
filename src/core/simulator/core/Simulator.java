@@ -8,19 +8,21 @@ package core.simulator.core;
 public class Simulator {
 
     private Calendar calendar;
-    private TimeStamp localVirtualTime;
+    private double localVirtualTime;
     private EventInvoker invoker;
+    private SimulationModel model;
 
-    public Simulator() {
-        this(new BaseInvoker());
+    public Simulator(SimulationModel model) {
+        this(model, new BaseInvoker());
     }
 
-    public Simulator(EventInvoker invoker) {
+    public Simulator(SimulationModel model, EventInvoker invoker) {
+        this.model = model;
         this.invoker = invoker;
     }
 
-    public void simulate(final SimulationModel model) {
-        prepareEnvironment(model);
+    public void simulate() {
+        prepareEnvironment();
 
         while (!calendar.isEmpty()) {
             ScheduledEvent scheduledEvent = calendar.getNextEvent();
@@ -32,7 +34,7 @@ public class Simulator {
         }
     }
 
-    private void prepareEnvironment(final SimulationModel model) {
+    private void prepareEnvironment() {
         calendar = new Calendar();
 
         model.prepare();
@@ -41,11 +43,11 @@ public class Simulator {
         }
     }
 
-    public TimeStamp getLocalSimulationTime() {
+    public double getLocalSimulationTime() {
         return localVirtualTime;
     }
 
-    public void scheduleAt(final TimeStamp time, final Event event) {
+    public void scheduleAt(final double time, final Event event) {
         calendar.schedule(event, time);
     }
 }

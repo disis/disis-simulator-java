@@ -8,9 +8,9 @@ package core.simulator.core;
 public class ScheduledEvent implements Comparable<ScheduledEvent> {
 
     private final Event event;
-    private final TimeStamp timeStamp;
+    private final double timeStamp;
 
-    public ScheduledEvent(Event event, TimeStamp timeStamp) {
+    public ScheduledEvent(Event event, double timeStamp) {
         this.event = event;
         this.timeStamp = timeStamp;
     }
@@ -19,12 +19,12 @@ public class ScheduledEvent implements Comparable<ScheduledEvent> {
         return event;
     }
 
-    public TimeStamp getTimeStamp() {
+    public double getTimeStamp() {
         return timeStamp;
     }
 
     @Override
     public int compareTo(ScheduledEvent other) {
-        return getTimeStamp().compareTo(other.getTimeStamp());
+        return new Double(getTimeStamp()).compareTo(other.getTimeStamp());
     }
 }
