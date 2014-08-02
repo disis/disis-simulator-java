@@ -1,4 +1,4 @@
-package demo;
+package demo.model.ticker;
 
 import core.simulator.Simulator;
 
@@ -10,7 +10,7 @@ import core.simulator.Simulator;
 public class CounterEvent extends PeriodicEvent {
     private int counter = 0;
 
-    protected CounterEvent(int period) {
+    public CounterEvent(int period) {
         super(period);
     }
 

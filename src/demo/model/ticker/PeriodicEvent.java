@@ -1,4 +1,4 @@
-package demo;
+package demo.model.ticker;
 
 import core.simulator.Event;
 import core.simulator.Simulator;
@@ -9,6 +9,7 @@ import core.simulator.Simulator;
  * Date: 29. 6. 2014 16:24
  */
 public abstract class PeriodicEvent implements Event {
+
     private int period;
 
     protected PeriodicEvent(int period) {

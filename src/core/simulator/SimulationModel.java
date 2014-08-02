@@ -1,17 +1,24 @@
 package core.simulator;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is DISIS
  * Authors: Jirka Penzes & Jan Voracek
  * Date: 24. 6. 2014 18:25
  */
-public class SimulationModel {
-    public void prepare() {
+public abstract class SimulationModel {
+
+    protected List<ScheduledEvent> initialEvents;
+
+    protected SimulationModel() {
+        initialEvents = new ArrayList<>();
     }
 
+    public abstract void prepare();
+
     public Iterable<ScheduledEvent> getInitialEvents() {
-        return Collections.emptyList();
+        return initialEvents;
     }
 }

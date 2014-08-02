@@ -11,9 +11,12 @@ import core.configuration.ConfigurationLoader;
 import core.configuration.LocalConfiguration;
 import core.disis.RestSimulatorInfo;
 import core.disis.SimulatorRestResource;
+import core.disis.StaticContext;
 import core.simulator.ScheduledEvent;
 import core.simulator.SimulationModel;
 import core.simulator.Simulator;
+import demo.model.ticker.CounterEvent;
+import demo.model.ticker.TickerModel;
 import org.glassfish.grizzly.http.server.HttpServer;
 
 import javax.ws.rs.core.MediaType;
@@ -30,6 +33,9 @@ import java.util.List;
 public class Demo {
 
     public static void main(String[] args) throws IOException {
+        demo1();
+        if (true) return;
+
         String configurationPath1 = new File("src/demo/configuration/demo2/configuration-sample-1.json").getAbsolutePath();
         String configurationPath2 = new File("src/demo/configuration/demo2/configuration-sample-2.json").getAbsolutePath();
         LocalConfiguration configuration1 = ConfigurationLoader.load(configurationPath1, LocalConfiguration.class);
@@ -66,6 +72,9 @@ public class Demo {
         HttpServer httpServer = GrizzlyServerFactory.createHttpServer(configuration.getSimulatorFullAddress(), new ClassNamesResourceConfig(SimulatorRestResource.class));
         httpServer.start();
 
+        Simulator simulator = new Simulator(new TickerModel(1, 0.0));
+        StaticContext.init(simulator);
+
         ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
         WebResource resource = client.resource(configuration.getDisisFullAddress()).path("connect");
@@ -77,10 +86,16 @@ public class Demo {
                 configuration.getSurroundingSimulators());
         Gson gson = new Gson();
         resource.type(MediaType.APPLICATION_JSON).post(gson.toJson(clientInfo));
+        System.in.read();
     }
 
     private static void simulatorDemo() {
-        Simulator simulator = new Simulator(new SimulationModel(){
+        Simulator simulator = new Simulator(new SimulationModel() {
+            @Override
+            public void prepare() {
+
+            }
+
             @Override
             public Iterable<ScheduledEvent> getInitialEvents() {
                 List<ScheduledEvent> events = new ArrayList<>();
