@@ -88,7 +88,7 @@ public class LocalConfiguration {
         return disisPath;
     }
 
-    public Iterable<String> getSurroundingSimulators() {
+    public List<String> getSurroundingSimulators() {
         return surroundingSimulators;
     }
 

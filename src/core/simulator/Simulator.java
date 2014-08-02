@@ -1,4 +1,7 @@
-package core.simulator.core;
+package core.simulator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is DISIS
@@ -11,6 +14,8 @@ public class Simulator {
     private double localVirtualTime;
     private EventInvoker invoker;
     private SimulationModel model;
+    private boolean isRunning;
+    private List<ScheduledEventListener> scheduledEventListeners = new ArrayList<>();
 
     public Simulator(SimulationModel model) {
         this(model, new BaseInvoker());
@@ -24,13 +29,14 @@ public class Simulator {
     public void simulate() {
         prepareEnvironment();
 
-        while (!calendar.isEmpty()) {
+        while (isRunning && !calendar.isEmpty()) {
             ScheduledEvent scheduledEvent = calendar.getNextEvent();
 
             localVirtualTime = scheduledEvent.getTimeStamp();
             invoker.invoke(this, scheduledEvent.getEvent());
 
             calendar.remove(scheduledEvent);
+            notifyScheduledEventListeners(scheduledEvent);
         }
     }
 
@@ -49,5 +55,23 @@ public class Simulator {
 
     public void scheduleAt(final double time, final Event event) {
         calendar.schedule(event, time);
+    }
+
+    public void addEventListener(ScheduledEventListener listener) {
+        scheduledEventListeners.add(listener);
+    }
+
+    private void notifyScheduledEventListeners(ScheduledEvent scheduledEvent) {
+        for (ScheduledEventListener listener : scheduledEventListeners) {
+            listener.processed(scheduledEvent);
+        }
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
 }

@@ -1,13 +1,15 @@
-package core.simulator.disis;
+package core.disis;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * This is DISIS
  * Authors: Jirka Penzes & Jan Voracek
  * Date: 30. 6. 2014 11:08
  */
-public class RestClientInfo {
+public class RestSimulatorInfo {
 
     // Fast Food Left
     @SerializedName("title")
@@ -27,9 +29,9 @@ public class RestClientInfo {
 
     // ["fast-food-I", "highway-I"]
     @SerializedName("surrounding-simulators")
-    public Iterable<String> surroundingSimulators;
+    public List<String> surroundingSimulators;
 
-    public RestClientInfo(String title, String remoteName, String description, String endPointAddress, Iterable<String> surroundingSimulators) {
+    public RestSimulatorInfo(String title, String remoteName, String description, String endPointAddress, List<String> surroundingSimulators) {
         this.title = title;
         this.remoteName = remoteName;
         this.description = description;

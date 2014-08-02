@@ -1,8 +1,7 @@
 package demo;
 
-import core.simulator.core.Event;
-import core.simulator.core.Simulator;
-import core.simulator.core.TimeStamp;
+import core.simulator.Event;
+import core.simulator.Simulator;
 
 /**
  * This is DISIS
@@ -19,8 +18,8 @@ public abstract class PeriodicEvent implements Event {
     @Override
     public void execute(Simulator simulator) {
         doAction(simulator);
-        TimeStamp currentTime = simulator.getLocalSimulationTime();
-        TimeStamp nextOccurrenceTime = currentTime.add(period);
+        double currentTime = simulator.getLocalSimulationTime();
+        double nextOccurrenceTime = currentTime + period;
         simulator.scheduleAt(nextOccurrenceTime, this);
     }
 

@@ -1,4 +1,4 @@
-package core.simulator.core;
+package core.simulator;
 
 import java.util.PriorityQueue;
 

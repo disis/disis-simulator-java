@@ -9,12 +9,11 @@ import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.ClassNamesResourceConfig;
 import core.configuration.ConfigurationLoader;
 import core.configuration.LocalConfiguration;
+import core.disis.RestSimulatorInfo;
 import core.disis.SimulatorRestResource;
-import core.simulator.core.ScheduledEvent;
-import core.simulator.core.SimulationModel;
-import core.simulator.core.Simulator;
-import core.simulator.core.TimeStamp;
-import core.simulator.disis.RestClientInfo;
+import core.simulator.ScheduledEvent;
+import core.simulator.SimulationModel;
+import core.simulator.Simulator;
 import org.glassfish.grizzly.http.server.HttpServer;
 
 import javax.ws.rs.core.MediaType;
@@ -49,7 +48,7 @@ public class Demo {
         ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
         WebResource resource = client.resource(configuration.getDisisFullAddress()).path("connect");
-        RestClientInfo clientInfo = new RestClientInfo(
+        RestSimulatorInfo clientInfo = new RestSimulatorInfo(
                 configuration.getTitle(),
                 configuration.getName(),
                 configuration.getDescription(),
@@ -70,7 +69,7 @@ public class Demo {
         ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
         WebResource resource = client.resource(configuration.getDisisFullAddress()).path("connect");
-        RestClientInfo clientInfo = new RestClientInfo(
+        RestSimulatorInfo clientInfo = new RestSimulatorInfo(
                 configuration.getTitle(),
                 configuration.getName(),
                 configuration.getDescription(),
@@ -85,7 +84,7 @@ public class Demo {
             @Override
             public Iterable<ScheduledEvent> getInitialEvents() {
                 List<ScheduledEvent> events = new ArrayList<>();
-                events.add(new ScheduledEvent(new CounterEvent(100), new TimeStamp(0)));
+                events.add(new ScheduledEvent(new CounterEvent(100), 0));
                 return events;
             }
         }, new SleepInvoker(1000));
