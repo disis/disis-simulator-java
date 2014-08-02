@@ -45,22 +45,37 @@ public class DisisController implements ScheduledEventListener {
         resource.type(MediaType.APPLICATION_JSON).post(s);
     }
 
+    public void startSimulation() {
+        simulator.setRunning(!isDistributedSimulator());
+        new Thread(() -> simulator.simulate()).start();
+    }
+
+    private boolean isDistributedSimulator() {
+        return !configuration.getSurroundingSimulators().isEmpty();
+    }
+
     public void updateTime(double localVirtualTime) {
         WebResource resource = getResource("update-simulation-timestamp");
         UpdateMessage updateMessage = new UpdateMessage(clientInfo, localVirtualTime);
         resource.post(makeJson(updateMessage));
     }
 
+    public void requestNullMessage(String requester, double currentLVT) {
+        WebResource resource = getResource("send-message");
+        // to be continued...
+        resource.post(makeJson());
+    }
+
     @Override
     public void processed(ScheduledEvent scheduledEvent) {
-        if(scheduledEvent.getEvent() instanceof DistributedEvent) {
-            DistributedEvent distributedEvent = (DistributedEvent)scheduledEvent.getEvent();
+        if (scheduledEvent.getEvent() instanceof DistributedEvent) {
+            DistributedEvent distributedEvent = (DistributedEvent) scheduledEvent.getEvent();
 
             String remoteSimulatorName = distributedEvent.getRemoteSimulatorName();
             int counter = counters.get(remoteSimulatorName) - 1; // decrement counter
             counters.put(remoteSimulatorName, counter);
 
-            if(counter == 0) {
+            if (counter == 0) {
                 simulator.setRunning(false);
             }
         }

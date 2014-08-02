@@ -1,12 +1,13 @@
 {
     "simulator-title": "Test LP",
-    "simulator-name": "test-lp",
+    "simulator-name": "sim-a",
     "simulator-description": "Java Simulator",
     "simulator-address": "localhost",
-    "simulator-port": 4099,
+    "simulator-port": 5099,
     "disis-address": "localhost",
     "disis-port": 8099,
     "disis-path": "/disis",
     "surrounding-simulators": [
+        "sim-b"
     ]
 }

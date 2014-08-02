@@ -28,15 +28,16 @@ public class Simulator {
 
     public void simulate() {
         prepareEnvironment();
+        while (true) {
+            while (isRunning && !calendar.isEmpty()) {
+                ScheduledEvent scheduledEvent = calendar.getNextEvent();
 
-        while (isRunning && !calendar.isEmpty()) {
-            ScheduledEvent scheduledEvent = calendar.getNextEvent();
+                localVirtualTime = scheduledEvent.getTimeStamp();
+                invoker.invoke(this, scheduledEvent.getEvent());
 
-            localVirtualTime = scheduledEvent.getTimeStamp();
-            invoker.invoke(this, scheduledEvent.getEvent());
-
-            calendar.remove(scheduledEvent);
-            notifyScheduledEventListeners(scheduledEvent);
+                calendar.remove(scheduledEvent);
+                notifyScheduledEventListeners(scheduledEvent);
+            }
         }
     }
 
